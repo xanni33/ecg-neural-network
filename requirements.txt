@@ -1,3 +1,4 @@
+wfdb
 numpy
 pandas
 matplotlib

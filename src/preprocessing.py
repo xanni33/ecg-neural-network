@@ -19,3 +19,13 @@ def preprocess_pipeline(signal):
     signal = bandpass_filter(signal)
     signal = normalize(signal)
     return segment_signal(signal)
+
+from sklearn.preprocessing import MultiLabelBinarizer
+
+def binarize_labels(label_lists):
+    """
+    label_lists: list[list[str]]
+    """
+    mlb = MultiLabelBinarizer()
+    y = mlb.fit_transform(label_lists)
+    return y, mlb

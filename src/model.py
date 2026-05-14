@@ -17,7 +17,7 @@ class ECGCNN(nn.Module):
             nn.Linear(32 * 180, 128),
             nn.ReLU(),
             nn.Linear(128, num_classes),
-            nn.Sigmoid()
+            #nn.Sigmoid() poprawka bo potem i tak bedzie w lossie:)
         )
 
     def forward(self, x):

@@ -1,6 +1,7 @@
 #filtry, normalizacja, segmentacja sygnalu
 import numpy as np
 from scipy.signal import butter, filtfilt
+from augmentation import augment_signal
 
 def bandpass_filter(signal, low=0.5, high=40, fs=360):
     b, a = butter(4, [low/(fs/2), high/(fs/2)], btype='band')[:2]
@@ -15,9 +16,18 @@ def segment_signal(signal, window_size=360*2):
         segments.append(signal[i:i+window_size])
     return np.array(segments)
 
-def preprocess_pipeline(signal):
+#przed augmentacja:
+#def preprocess_pipeline(signal):
+#    signal = bandpass_filter(signal)
+#    signal = normalize(signal)
+#    return segment_signal(signal)
+def preprocess_pipeline(signal, augment=False):
     signal = bandpass_filter(signal)
     signal = normalize(signal)
+
+    if augment:
+        signal = augment_signal(signal)
+
     return segment_signal(signal)
 
 from sklearn.preprocessing import MultiLabelBinarizer
